@@ -4,6 +4,15 @@ created by the mighty heydon''')
 # ---------------------------
 import random
 import time
+import sys
+import base64
+
+# print_slow code
+def print_slow(str):
+    for letter in str:
+        sys.stdout.write(letter)
+        sys.stdout.flush()
+        time.sleep(0.1)
 
 living_status = 1 # 1 is alive 0 is dead 0.5 is zombie like
 cultivate_chance = 0
@@ -12,52 +21,77 @@ stats_realm = 0
 stats_wealth = 0
 power_type = "neutral"
 time_power = 5
+admin_text_code = "admin"
+administrator_privileges = base64.b64encode(admin_text_code.encode('utf-8'))
 # ---------------------------
+
 character_name = str(input('''what do u want ur name to be?
 '''))
-time.sleep(2.0)
-print("PEASANT (friendly) : ", character_name,'''ur finally awake!
+
+if character_name == "admin1":
+    print("admin panel activated")
+    character_name = (administrator_privileges)
+
+
+if character_name == administrator_privileges :
+    print("ADMIN : story section skipped.")
+else:
+    time.sleep(2.0)
+    print_slow(f'''PEASANT (friendly) : {character_name} ur finally awake!
 you've been asleep for 10 years!! the world has changed since you've last been awake''')
 
-time.sleep(5.0)
-
-choice_1 = input('''you have woken up from your coma.
+    print_slow('''you have woken up from your coma.
 The world has changed in your absence and you are currently a low-life mortal.
-You have 2 choices from the inheritence your parents have given you.
+You have 2 choices from the inheritence your parents have given you.''')
+
+choice_1 = input('''
 a) mortal life
 b) immortal cultivation
 ''')
 
-time.sleep(4.0)
+if character_name == administrator_privileges :
+    print("ADMIN : wait time skipped.")
+else:
+    time.sleep(4.0)
 
 if choice_1.lower() == "a":
     print('''you have chosen... mortal life''')
     time.sleep(1)
     print("ibsfr thats lowkey boring.")
-    time.sleep(1)
-    print('''you live a boring and uneventful life until you die at the ripe old age of 40
+    time.sleep(3)
+    print_slow('''you live a boring and uneventful life until you die at the ripe old age of 40
 due to the shockwaves of a fight among immortals''')
     living_status = 0
     quit()
+
 # END 
 
 if choice_1.lower() == "b":
-    power_type = input('''IMMORTAL (cannot determine) : you have chosen... IMMORTAL CULTIVATION
+    print_slow('''IMMORTAL (realm : unfathomable) : you have chosen... IMMORTAL CULTIVATION
 what path do you want to travel on?
 a) time path
 b) space path
-c) blood
-d) mind
+c) blood path
+d) mind path
+e) pedo path (progenitor is T Diddy)
 ''')
-    if power_type.lower() == "a":
+
+power_type = input("")
+
+if power_type.lower() == "a":
         power_type = "time"
-    if power_type.lower() == "b":
+elif power_type.lower() == "b":
         power_type = "space"
-    if power_type.lower() == "c":
+elif power_type.lower() == "c":
         power_type = "blood"
-    if power_type.lower() == "d":
+elif power_type.lower() == "d":
         power_type = "mind"
-    else:
+elif power_type.lower() == "e" or character_name.lower() == "t diddy":
+        print("T Diddy touched you up and you have perished due to that.")
+        living_status = 0
+        print("try to avoid the pedo path next time")
+        quit()
+else:
         print("you have failed to answer and died due to the backlash of summoning an immortal")
         living_status = 0
         quit()
@@ -112,7 +146,7 @@ elif choice_daily.lower() == "kys":
 
 elif living_status == 0:
     print("you are currently a ghost.")
-
+    quit()
 
 
 
